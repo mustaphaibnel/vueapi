@@ -36,7 +36,7 @@ const routes = [
 	},
 	children: [
         {
-          path: 'users',
+          path: 'users', name:'GuestUsers',
 			components: { 
 			default: GuestUsers,
 		},
@@ -52,7 +52,7 @@ const routes = [
 		]
 		},
 		{
-		path: 'posts',
+		path: 'posts', name:'GuestPosts',
 			components: { 
 			default: GuestPosts,
 		},
@@ -70,12 +70,12 @@ const routes = [
 
 	]
 	},
-	{ path: '/admin', components: { 
+	{ path: '/admin', name:'Admin',components: { 
         default: AdminHome,
     },
     children: [
         {
-          path: 'users',
+          path: 'users', name:'AdminUsers',
             components: { 
             default: AdminUsers,
         },
@@ -96,10 +96,11 @@ const routes = [
                 path: ':id/delete',
                 component: AdminUsersDelete
             }
-        ]
+        ],
+        meta: { requiresAuth: true,title:'Users'} 
         },
         {
-        path: 'posts',
+        path: 'posts', name:'AdminPosts',
             components: { 
             default: AdminPosts,
         },
@@ -124,11 +125,7 @@ const routes = [
         }
 
     ],
-    meta: { requiresAuth: true} 
-    },
-    { 
-        path: '*',
-        redirect:{name:'GuestHome'}
+    meta: { requiresAuth: true,title:'Admin'} 
     }
 	
 ]
