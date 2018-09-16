@@ -6,6 +6,7 @@
  import GuestUsersIndex from '../components/admin/users/index'
  import GuestUsersShow from '../components/admin/users/show'
 
+
  import GuestPosts from '../pages/guest/posts'
  import GuestPostsIndex from '../components/admin/posts/index'
  import GuestPostsShow from '../components/admin/posts/show'
@@ -17,18 +18,21 @@ import AdminUsers from '../pages/admin/users'
 //child of user
 import AdminUsersIndex from '../components/admin/users/index'
 import AdminUsersShow from '../components/admin/users/show'
-
+import AdminUsersEdit from '../components/admin/users/edit'
+import AdminUsersDelete from '../components/admin/users/delete'
 
 import AdminPosts from '../pages/admin/posts'
 import AdminPostsIndex from '../components/admin/posts/index'
 import AdminPostsShow from '../components/admin/posts/show'
-
+import AdminPostsEdit from '../components/admin/posts/edit'
+import AdminPostsDelete from '../components/admin/posts/delete'
 
 
 
 const routes = [
-    { path: '/', components: { 
+    { path: '/', name:'GuestHome',components: { 
         default: GuestHome,
+        
 	},
 	children: [
         {
@@ -83,6 +87,14 @@ const routes = [
             {
                 path: ':id',
                 component: AdminUsersShow
+            },
+            {
+                path: ':id/edit',
+                component: AdminUsersEdit
+            },
+            {
+                path: ':id/delete',
+                component: AdminUsersDelete
             }
         ]
         },
@@ -99,11 +111,24 @@ const routes = [
             {
                 path: ':id',
                 component: AdminPostsShow
+            },
+            {
+                path: ':id/edit',
+                component: AdminPostsEdit
+            },
+            {
+                path: ':id/delete',
+                component: AdminPostsDelete
             }
         ]
         }
 
-    ]
+    ],
+    meta: { requiresAuth: true} 
+    },
+    { 
+        path: '*',
+        redirect:{name:'GuestHome'}
     }
 	
 ]
