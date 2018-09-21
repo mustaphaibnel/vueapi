@@ -5,13 +5,15 @@
       <v-spacer></v-spacer>
 
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Link One</v-btn>
-      <v-btn flat>Link Two</v-btn>
-      <v-btn flat>Link Three</v-btn>
+      <v-btn flat>Contact</v-btn>
+      <v-btn flat>Groupe</v-btn>
+      <v-btn flat>Blog</v-btn>
     </v-toolbar-items>
       <v-toolbar-items>
-      <v-btn depressed small color="primary"  dark href="admin">Admin<v-icon>settings</v-icon></v-btn>
-                  <v-btn color="warning" fab dark small>
+      <v-btn fab dark small color="green">
+      <v-icon dark>settings</v-icon>
+      </v-btn>
+                  <v-btn color="black" fab dark small>
               <v-icon>account_circle</v-icon>
             </v-btn>
     <v-btn fab dark small color="red">
@@ -58,7 +60,7 @@
   export default {
     data () {
       return {
-        title: 'STEEF',
+        title: 'HCP',
          links: [
         'Home',
         'About Us',

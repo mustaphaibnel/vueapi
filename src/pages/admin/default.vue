@@ -40,9 +40,12 @@
 
 
       <v-toolbar-items>
-      <v-btn flat href="/">Home<v-icon>home</v-icon></v-btn>
-
-      <v-btn flat href="/">logout<v-icon>logout</v-icon></v-btn>
+          <v-btn fab dark small color="green">
+      <v-icon dark>home</v-icon>
+    </v-btn>
+         <v-btn fab dark small color="red">
+      <v-icon dark>logout</v-icon>
+    </v-btn>
     </v-toolbar-items>
     </v-toolbar>
     <v-content>
