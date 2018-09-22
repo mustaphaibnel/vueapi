@@ -40,4 +40,62 @@ HTTP.interceptors.response.use(data => {
 	console.groupEnd()
 	return Promise.reject(error)
 })
-  export default HTTP
+
+
+class HttpRequest {
+  constructor () {
+    this.axios = axios
+  }
+
+  setHeader (header) {
+    HTTP.defaults.headers.common[header.key] = header.value
+    HTTP.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+  }
+
+  index (methodName) {
+    let posts=[]
+    const url = methodName
+    const HTTPREQUEST = HTTP.get
+     HTTPREQUEST(url).then(function(response) {
+      posts.push(response.data)     
+    })
+    return posts
+  }
+  show (methodName) {
+    let post=[]
+    const url = methodName
+    const HTTPREQUEST = HTTP.get
+     HTTPREQUEST(url).then(function(response) {
+      post.push(response.data)     
+    })
+    return post
+  }
+  store (methodName,data) {
+    let posts=[]
+    const url = methodName
+    const HTTPREQUEST = HTTP.post
+     HTTPREQUEST(url,data).then(function(response) {
+      posts.push(response.data)     
+    })
+    return posts
+  }
+  update (methodName) {
+    let posts=[]
+    const url = methodName
+    const HTTPREQUEST = HTTP.get
+     HTTPREQUEST(url).then(function(response) {
+      posts.push(response.data)     
+    })
+    return posts
+  }
+  delete (methodName) {
+    let posts=[]
+    const url = methodName
+    const HTTPREQUEST = HTTP.delete
+     HTTPREQUEST(url).then(function(response) {
+      posts.push(response.data)     
+    })
+    return posts
+  }
+}
+  export default HttpRequest

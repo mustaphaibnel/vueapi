@@ -1,23 +1,11 @@
-import HTTP from './http_request'
-class PostProvider  {
+import HttpRequest from './http_request'
+class PostProvider extends HttpRequest {
 
   getPost () {
-    let post=[]
-    const url = 'posts/6'
-    const HTTPREQUEST = HTTP.get
-     HTTPREQUEST(url).then(function(response) {
-      post.push(response.data)     
-    })
-    return post
+    return this.show('posts/'+id)
   }
   getPosts () {
-    let posts=[]
-    const url = 'posts'
-    const HTTPREQUEST = HTTP.get
-     HTTPREQUEST(url).then(function(response) {
-      posts.push(response.data)     
-    })
-    return posts
+    return this.index('posts')
   }
 }
 export default PostProvider
