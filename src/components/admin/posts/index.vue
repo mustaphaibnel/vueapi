@@ -3,17 +3,16 @@
     <br>
     <hr>
 <v-btn @click="getPosts">get all</v-btn>
+<hr>
 
-<v-btn @click="getPost">get one</v-btn>
-<pre>
-      {{post}}
-    </pre>
-    <h1>
-      Posts
-    </h1>
-    <pre>
-      {{posts}}
-    </pre>
+<ul>
+<div v-for="myposts in posts" :key="myposts">
+  <li v-for="post in myposts" :key="post.id">
+{{post.id}}
+  </li>
+</div>
+</ul>
+<br><br><br><br>
   </div>
 </template>
 
@@ -24,14 +23,18 @@ export default {
   computed:{
     ...mapGetters({
       posts: 'post/posts',
-      post: 'post/post'
-    })
+    }),
+    posts(posts){
+      return posts[0]
+    }
   },
   methods:{
     ...mapActions({
-      getPosts: 'post/getPosts',
-      getPost: 'post/getPost'
+      getPosts: 'post/index',
     })
+  },
+  created(){
+    this.getPosts();
   }
 }
 </script>

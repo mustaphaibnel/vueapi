@@ -1,11 +1,20 @@
 import HttpRequest from './http_request'
 class PostProvider extends HttpRequest {
 
-  getPost () {
+  PostShow (id) {
     return this.show('posts/'+id)
   }
-  getPosts () {
+  postIndex () {
     return this.index('posts')
+  }
+  PostStore (data) {
+    return this.show('posts',data)
+  }
+  PostUpdate (data) {
+    return this.show('posts/'+data.id,data.post)
+  }
+  PostDelete (id) {
+    return this.show('posts/'+id)
   }
 }
 export default PostProvider

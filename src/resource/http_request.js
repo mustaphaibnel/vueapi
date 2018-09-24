@@ -30,9 +30,8 @@ HTTP.interceptors.request.use(config => {
 	return Promise.reject(error)
 })
 
-HTTP.interceptors.response.use(data => {
-  console.log(data)
-    return data
+HTTP.interceptors.response.use(reponse => {
+  return  reponse
 
 }, error => {
 	console.group('[Axios][Interceptor] Response Error')
@@ -40,7 +39,6 @@ HTTP.interceptors.response.use(data => {
 	console.groupEnd()
 	return Promise.reject(error)
 })
-
 
 class HttpRequest {
   constructor () {
@@ -53,13 +51,14 @@ class HttpRequest {
   }
 
   index (methodName) {
-    let posts=[]
+    let posts =[];
     const url = methodName
     const HTTPREQUEST = HTTP.get
-     HTTPREQUEST(url).then(function(response) {
-      posts.push(response.data)     
-    })
-    return posts
+     HTTPREQUEST(url).then(function (result) {         
+         posts.push(result.data); // LIST = , OR RETURN - no idea how to set list
+     });
+console.dir(posts)
+     return posts;
   }
   show (methodName) {
     let post=[]
@@ -71,11 +70,11 @@ class HttpRequest {
     return post
   }
   store (methodName,data) {
-    let posts=[]
+    let posts
     const url = methodName
     const HTTPREQUEST = HTTP.post
      HTTPREQUEST(url,data).then(function(response) {
-      posts.push(response.data)     
+      posts=response.data.data    
     })
     return posts
   }

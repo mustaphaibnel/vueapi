@@ -5,13 +5,21 @@ const state = {
   post:{}
 };
 const actions={
-  getPosts(state){
-      state.commit('setPosts',PostService.getPosts())
+  show(state,id){
+      state.commit('show',PostService.PostShow(id))
   },
-  getPost (state) {
-    state.commit('setPost',PostService.getPost())
-    },
-
+  index (state) {
+    state.commit('index',PostService.postIndex())
+  },
+  store (state,data) {
+    state.commit('store',PostService.PostStore(data))
+  },
+  update (state,data) {
+      state.commit('update',PostService.PostUpdate(data.id,data.post))
+  },
+  delete (state,id) {
+      state.commit('delete',PostService.PostDelete(id))
+  }
 };
 const getters={
 posts(state){
@@ -22,13 +30,22 @@ post(state){
 }
 };
 const mutations={
-  setPosts(state,posts){
-
+  index(state,posts){
     state.posts=posts
   },
-  setPost(state,post){
+  show(state,post){
+    state.post=post
+  },
+  store(state,post){
+    state.post=post
+  },
+  update(state,post){
+    state.post=post
+  },
+  delete(state,post){
     state.post=post
   }
+  
 }
 
 export default {

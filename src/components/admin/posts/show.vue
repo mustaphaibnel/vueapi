@@ -8,18 +8,25 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { mapGetters,mapActions } from 'vuex'
 export default {
-     data () {
-    return {
-      post: ''
+computed:{
+    ...mapGetters({
+      post: 'post/post'
+    }),
+    post(post){
+      console.dir(post)
+      return post
     }
   },
-created: function () {
-    this.$http.get('https://jsonplaceholder.typicode.com/posts/'+this.$route.params.id )
-      .then(response => {
-        this.post = response.data;
-      
-      });
+  methods:{
+    ...mapActions({
+      getPost: 'post/show'
+    })
+  },
+  created(){
+    this.getPost('1');
   }
 }
 </script>
