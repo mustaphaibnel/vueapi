@@ -1,51 +1,54 @@
-import { PostService } from '../../resource'
+import {
+  PostService
+} from '../../resource'
 
 const state = {
   posts: {},
-  post:{}
+  post: {}
 };
-const actions={
-  show(state,id){
-      state.commit('show',PostService.PostShow(id))
+const actions = {
+  show(state, id) {
+    state.commit('show', PostService.PostShow(id))
   },
-  index (state) {
-    state.commit('index',PostService.postIndex())
+  index(state) {
+
+    state.commit('index', PostService.postIndex())
   },
-  store (state,data) {
-    state.commit('store',PostService.PostStore(data))
+  store(state, data) {
+    state.commit('store', PostService.PostStore(data))
   },
-  update (state,data) {
-      state.commit('update',PostService.PostUpdate(data.id,data.post))
+  update(state, data) {
+    state.commit('update', PostService.PostUpdate(data.id, data.post))
   },
-  delete (state,id) {
-      state.commit('delete',PostService.PostDelete(id))
+  delete(state, id) {
+    state.commit('delete', PostService.PostDelete(id))
   }
 };
-const getters={
-posts(state){
-  return state.posts
-},
-post(state){
-  return state.post
-}
-};
-const mutations={
-  index(state,posts){
-    state.posts=posts
+const getters = {
+  posts(state) {
+    return state.posts[0]
   },
-  show(state,post){
-    state.post=post
-  },
-  store(state,post){
-    state.post=post
-  },
-  update(state,post){
-    state.post=post
-  },
-  delete(state,post){
-    state.post=post
+  post(state) {
+    return state.post[0]
   }
-  
+};
+const mutations = {
+  index(state, posts) {
+    state.posts = posts
+  },
+  show(state, post) {
+    state.post = post
+  },
+  store(state, post) {
+    state.post = post
+  },
+  update(state, post) {
+    state.post = post
+  },
+  delete(state, post) {
+    state.post = post
+  }
+
 }
 
 export default {

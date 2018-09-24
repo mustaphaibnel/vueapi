@@ -8,11 +8,10 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   baseURL = 'http://api.example.com:8080'
 }
 
- const HTTP = axios.create(
-  {
-    baseURL: baseURL
-  })
-  HTTP.defaults.timeout = 5000
+const HTTP = axios.create({
+  baseURL: baseURL
+})
+HTTP.defaults.timeout = 5000
 
 /**
  * Declare Variable
@@ -22,79 +21,79 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
  * Config
  */
 HTTP.interceptors.request.use(config => {
-	return config
+  return config
 }, error => {
-	console.group('[Axios][Interceptor] Request Error')
-	console.log(error)
-	console.groupEnd()
-	return Promise.reject(error)
+  console.group('[Axios][Interceptor] Request Error')
+  console.log(error)
+  console.groupEnd()
+  return Promise.reject(error)
 })
 
 HTTP.interceptors.response.use(reponse => {
-  return  reponse
+  return reponse
 
 }, error => {
-	console.group('[Axios][Interceptor] Response Error')
-	console.log(error)
-	console.groupEnd()
-	return Promise.reject(error)
+  console.group('[Axios][Interceptor] Response Error')
+  console.log(error)
+  console.groupEnd()
+  return Promise.reject(error)
 })
 
 class HttpRequest {
-  constructor () {
+  constructor() {
     this.axios = axios
   }
 
-  setHeader (header) {
+  setHeader(header) {
     HTTP.defaults.headers.common[header.key] = header.value
     HTTP.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
   }
 
-  index (methodName) {
-    let posts =[];
+  index(methodName) {
+    let posts = [];
     const url = methodName
     const HTTPREQUEST = HTTP.get
-     HTTPREQUEST(url).then(function (result) {         
-         posts.push(result.data); // LIST = , OR RETURN - no idea how to set list
-     });
-console.dir(posts)
-     return posts;
+    HTTPREQUEST(url).then(function (result) {
+      posts.push(result.data); // LIST = , OR RETURN - no idea how to set list
+    });
+    console.dir(posts)
+    return posts;
   }
-  show (methodName) {
-    let post=[]
+  show(methodName) {
+    let post = []
     const url = methodName
     const HTTPREQUEST = HTTP.get
-     HTTPREQUEST(url).then(function(response) {
-      post.push(response.data)     
+    HTTPREQUEST(url).then(function (response) {
+      post.push(response.data)
     })
     return post
   }
-  store (methodName,data) {
+  store(methodName, data) {
     let posts
     const url = methodName
     const HTTPREQUEST = HTTP.post
-     HTTPREQUEST(url,data).then(function(response) {
-      posts=response.data.data    
+    HTTPREQUEST(url, data).then(function (response) {
+      posts = response.data.data
     })
     return posts
   }
-  update (methodName) {
-    let posts=[]
+  update(methodName) {
+    let posts = []
     const url = methodName
     const HTTPREQUEST = HTTP.get
-     HTTPREQUEST(url).then(function(response) {
-      posts.push(response.data)     
+    HTTPREQUEST(url).then(function (response) {
+      posts.push(response.data)
     })
     return posts
   }
-  delete (methodName) {
-    let posts=[]
+  delete(methodName) {
+    let posts = []
     const url = methodName
     const HTTPREQUEST = HTTP.delete
-     HTTPREQUEST(url).then(function(response) {
-      posts.push(response.data)     
+    HTTPREQUEST(url).then(function (response) {
+      posts.push(response.data)
     })
     return posts
   }
 }
-  export default HttpRequest
+export default HttpRequest
