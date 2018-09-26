@@ -44,29 +44,30 @@ class HttpRequest {
     this.axios = axios
   }
 
+
   setHeader(header) {
     HTTP.defaults.headers.common[header.key] = header.value
     HTTP.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
   }
 
   index(methodName) {
-    let posts = [];
     const url = methodName
     const HTTPREQUEST = HTTP.get
-    HTTPREQUEST(url).then(function (result) {
-      posts.push(result.data); // LIST = , OR RETURN - no idea how to set list
+     return HTTPREQUEST(url).then(function (response) {
+     return response.data; // LIST = , OR RETURN - no idea how to set list
     });
-    console.dir(posts)
-    return posts;
+
+
+    //posts.assign({}, posts)
+    
+   // return posts
   }
   show(methodName) {
-    let post = []
     const url = methodName
     const HTTPREQUEST = HTTP.get
-    HTTPREQUEST(url).then(function (response) {
-      post.push(response.data)
-    })
-    return post
+     return HTTPREQUEST(url).then(function (response) {
+     return response.data; // LIST = , OR RETURN - no idea how to set list
+    });
   }
   store(methodName, data) {
     let posts
@@ -82,7 +83,7 @@ class HttpRequest {
     const url = methodName
     const HTTPREQUEST = HTTP.get
     HTTPREQUEST(url).then(function (response) {
-      posts.push(response.data)
+      posts.push(response.body)
     })
     return posts
   }

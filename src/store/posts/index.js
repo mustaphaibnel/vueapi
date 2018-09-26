@@ -7,29 +7,28 @@ const state = {
   post: {}
 };
 const actions = {
-  show(state, id) {
-    state.commit('show', PostService.PostShow(id))
+  async show(state, id) {
+    state.commit('show', await PostService.PostShow(id))
   },
-  index(state) {
-
-    state.commit('index', PostService.postIndex())
+  async  index(state) {
+    state.commit('index',await PostService.postIndex())
   },
-  store(state, data) {
-    state.commit('store', PostService.PostStore(data))
+  async store(state, data) {
+    state.commit('store', await PostService.PostStore(data))
   },
-  update(state, data) {
-    state.commit('update', PostService.PostUpdate(data.id, data.post))
+  async update(state, data) {
+    state.commit('update', await PostService.PostUpdate(data.id, data.post))
   },
-  delete(state, id) {
-    state.commit('delete', PostService.PostDelete(id))
+  async delete(state, id) {
+    state.commit('delete', await PostService.PostDelete(id))
   }
 };
 const getters = {
   posts(state) {
-    return state.posts[0]
+    return state.posts
   },
   post(state) {
-    return state.post[0]
+    return state.post
   }
 };
 const mutations = {

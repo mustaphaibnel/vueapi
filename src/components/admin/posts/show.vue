@@ -14,11 +14,7 @@ export default {
 computed:{
     ...mapGetters({
       post: 'post/post'
-    }),
-    post(post){
-      console.dir(post)
-      return post
-    }
+    })
   },
   methods:{
     ...mapActions({
