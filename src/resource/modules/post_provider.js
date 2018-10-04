@@ -1,4 +1,4 @@
-import HttpRequest from './http_request'
+import HttpRequest from '../api/http_request'
 class PostProvider extends HttpRequest {
 
   PostShow(id) {

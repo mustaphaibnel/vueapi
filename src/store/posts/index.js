@@ -1,6 +1,6 @@
 import {
   PostService
-} from '../../resource'
+} from '../../resource/modules/'
 
 const state = {
   posts: {},

@@ -27,6 +27,7 @@ import AdminPostsShow from '../components/admin/posts/show'
 import AdminPostsEdit from '../components/admin/posts/edit'
 import AdminPostsDelete from '../components/admin/posts/delete'
 
+import AuthLogin from '../pages/auth/login'
 
 
 const routes = [
@@ -35,6 +36,7 @@ const routes = [
         
 	},
 	children: [
+        {path: 'login', name:'AuthLogin',components: AuthLogin}, 
         {
           path: 'users', name:'GuestUsers',
 			components: { 

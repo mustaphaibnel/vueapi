@@ -1,14 +1,14 @@
 <template>
-<v-app light>
-    <v-toolbar class="white" fixed>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Contact</v-btn>
-      <v-btn flat>Groupe</v-btn>
-      <v-btn flat>Blog</v-btn>
-    </v-toolbar-items>
+  <v-app>
+    <v-toolbar class="white">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Vuetify Tutorial</v-toolbar-title>
+      <v-space></v-space>
+      <v-toolbar-items>
+        <v-btn flat>Vue</v-btn>
+        <v-btn flat>Vuex</v-btn>
+        <v-btn flat>Nuxt</v-btn>
+      </v-toolbar-items>
       <v-toolbar-items>
       <v-btn fab dark small color="green">
       <v-icon dark>settings</v-icon>
@@ -22,57 +22,45 @@
     </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      <section>
-        <v-container>
-          <router-view></router-view>
-        </v-container>
-      </section>
-
-<v-footer
-    fixed
-    height="auto"
-    color="primary lighten-1"
-  >
-    <v-layout
-      justify-center
-      row
-      wrap
-    >
-
-      <v-flex
-        primary
-        lighten-2
-        py-2
-        text-xs-center
-        white--text
-        xs12
-      >
-        &copy;2018 — <strong>Vuetify</strong>
-      </v-flex>
-    </v-layout>
-  </v-footer>
+      <router-view/>
     </v-content>
+    <v-navigation-drawer
+      temporary
+      v-model="drawer"
+      :mini-variant="mini"
+      light
+      absolute
+    >
+      <v-toolbar flat class="transparent">
+      <v-list class="pa-0">
+        <v-list-tile avatar>
+          <v-list-tile-avatar>
+            <img src="https://randomuser.me/api/portraits/men/85.jpg" />
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>John Leider</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-toolbar>
+    <v-list class="pt-0" dense>
+      <v-divider></v-divider>
+      <v-list-tile>
+        <v-list-tile-action>
+          <v-icon></v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+    </v-list>
+    </v-navigation-drawer>
   </v-app>
-
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        title: 'HCP',
-         links: [
-        'Home',
-        'About Us',
-        'Team',
-        'Services',
-        'Blog',
-        'Contact Us'
-      ]
-      }
+export default {
+  data() {
+    return {
+      drawer: false
     }
   }
+}
 </script>
-<style>
-
-</style>
