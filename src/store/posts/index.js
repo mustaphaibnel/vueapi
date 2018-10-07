@@ -11,7 +11,7 @@ const actions = {
     state.commit('show', await PostService.PostShow(id))
   },
   async  index(state) {
-    state.commit('index',await PostService.postIndex())
+    state.commit('index',await PostService.PostIndex())
   },
   async store(state, data) {
     state.commit('store', await PostService.PostStore(data))

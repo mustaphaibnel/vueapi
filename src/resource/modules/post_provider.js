@@ -4,7 +4,7 @@ class PostProvider extends HttpRequest {
   PostShow(id) {
     return this.show('posts/' + id)
   }
-  postIndex() {
+  PostIndex() {
     return this.index('posts')
   }
   PostStore(data) {
