@@ -42,7 +42,7 @@
               :key="i"
           
             >
-              <v-list-tile-action v-if="child.icon">
+              <v-list-tile-action v-if="child.icon" >
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
@@ -52,13 +52,13 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else :key="item.text" >
+          <v-list-tile v-else :key="item.text" :to="{ name: item.link}">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ item.text }}
+            <v-list-tile-content >
+              <v-list-tile-title >
+                {{ item.text }} 
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -76,14 +76,6 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Admin Contacts</span>
       </v-toolbar-title>
-      <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="search"
-        label="Search"
-        class="hidden-sm-and-down"
-      ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>apps</v-icon>
@@ -91,14 +83,9 @@
       <v-btn icon>
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large>
-        <v-avatar size="32px" tile>
-          <img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
-          >
-        </v-avatar>
-      </v-btn>
+    <v-btn fab dark small color="purple">
+      <v-icon dark>android</v-icon>
+    </v-btn>
     </v-toolbar>
     <v-content>
       <v-container>
@@ -119,36 +106,20 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'contacts', link:'Home',text: 'Contacts' },
-        { icon: 'history', link:'Home',text: 'Frequently contacted' },
-        { icon: 'content_copy', link:'Home',text: 'Duplicates' },
+        { icon: 'chat', link:'GuestPostsIndex',text: 'Posts' },
+        { icon: 'contacts', link:'GuestUsersIndex',text: 'Users' },
+        { icon: 'business', link:'GuestPostsIndex',text: 'Services' },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          link:'Home',text: 'Labels',
+          link:'GuestPostsIndex',text: 'Other',
           model: true,
           children: [
-            { icon: 'add', link:'Home',text: 'Create label' }
+            { icon: 'add', link:'GuestPostsIndex',text: 'Create label' }
           ]
         },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          link:'Home',text: 'More',
-          model: false,
-          children: [
-            { link:'Home',text: 'Import' },
-            { link:'Home',text: 'Export' },
-            { link:'Home',text: 'Print' },
-            { link:'Home',text: 'Undo changes' },
-            { link:'Home',text: 'Other contacts' }
-          ]
-        },
-        { icon: 'settings', link:'Home',text: 'Settings' },
-        { icon: 'chat_bubble', link:'Home',text: 'Send feedback' },
-        { icon: 'help', link:'Home',text: 'Help' },
-        { icon: 'phonelink', link:'Home',text: 'App downloads' },
-        { icon: 'keyboard', link:'Home',text: 'Go to the old version' }
+        { icon: 'settings', link:'GuestPostsIndex',text: 'Settings' },
+        { icon: 'chat_bubble', link:'GuestPostsIndex',text: 'Send feedback' }
       ]
     }),
     props: {

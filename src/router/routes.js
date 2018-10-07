@@ -45,7 +45,7 @@ const routes = [
 		children: [
 			{
 				path: '',
-				component: GuestUsersIndex
+				component: GuestUsersIndex,name:'GuestUsersIndex'
 			},
 			{
 				path: ':id',
@@ -61,7 +61,7 @@ const routes = [
 		children: [
 			{
 				path: '',
-				component: GuestPostsIndex
+				component: GuestPostsIndex,name:'GuestPostsIndex'
 			},
 			{
 				path: ':id',

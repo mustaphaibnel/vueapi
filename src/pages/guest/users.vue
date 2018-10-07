@@ -1,14 +1,33 @@
 <template>
     <div>
-    <h3>layouts of website :: Users</h3>
+    <v-breadcrumbs divider="/">
+      <v-breadcrumbs-item
+        v-for="item in items"
+        :key="item.text"
+        :disabled="item.disabled"
+      >
+        {{ item.text }}
+      </v-breadcrumbs-item>
+    </v-breadcrumbs>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-export default {
-
-}
+  export default {
+    data: () => ({
+      items: [
+        {
+          text: 'Admin',
+          disabled: false
+        },
+        {
+          text: 'Users',
+          disabled: false
+        }
+      ]
+    })
+  }
 </script>
 
 <style>
