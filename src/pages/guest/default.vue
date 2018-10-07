@@ -107,17 +107,7 @@
         
       </v-container>
     </v-content>
-    <v-btn
-      fab
-      bottom
-      right
-      color="pink"
-      dark
-      fixed
-      @click="dialog = !dialog"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
+    
 
   </v-app>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar flat color="white">
-      <v-toolbar-title>My CRUD</v-toolbar-title>
+      <v-toolbar-title>POSTS</v-toolbar-title>
       <v-divider
         class="mx-2"
         inset
@@ -16,8 +16,12 @@
         hide-details
       ></v-text-field>
       
-      <v-dialog v-model="dialog" max-width="500px">
-        <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
+      <v-dialog v-model="dialog" max-width="100%">
+        <v-btn slot="activator" color="success"  class="mb-2" fab dark >
+          <v-icon>
+            add
+          </v-icon>
+        </v-btn>
         <v-card>
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
@@ -27,19 +31,16 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                  <v-text-field v-model="editedItem.title" label="Dessert title"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                  <v-text-field v-model="editedItem.body" label="Body"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                  <v-text-field v-model="editedItem.userId" label="UserId (g)"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                  <v-text-field v-model="editedItem.id" label="ID (g)"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -47,49 +48,50 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+            <v-btn  class="red" flat @click.native="close" dark>Cancel</v-btn>
+            <v-btn  class="primary" flat @click.native="save" dark>Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-toolbar>
     <v-data-table
       :headers="headers"
-      :items="desserts"
-      hide-actions
+      :items="posts"
+      
       class="elevation-1"
       :search="search"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
+        <td>{{ props.item.title }}</td>
+        <td class="text-xs-left">{{ props.item.body }}</td>
+        <td class="text-xs-left">{{ props.item.userId }}</td>
+        <td class="text-xs-left">{{ props.item.id }}</td>
         <td class="justify-center layout px-0">
+          <v-btn  class="primary" @click="editItem(props.item)" fab small dark>
           <v-icon
             small
             class="mr-2"
-            @click="editItem(props.item)"
+            
           >
             edit
           </v-icon>
+          </v-btn>
+ <v-btn  class="red" @click="deleteItem(props.item)" fab small dark>
           <v-icon
             small
-            @click="deleteItem(props.item)"
+            
           >
             delete
           </v-icon>
+ </v-btn>
         </td>
-      </template>
-      <template slot="no-data">
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
   </div>
 </template>
 
 <script>
+import { mapGetters,mapActions } from 'vuex'
   export default {
     data: () => ({
       search:'',
@@ -99,127 +101,53 @@
           text: 'Dessert (100g serving)',
           align: 'left',
           sortable: false,
-          value: 'name'
+          value: 'title'
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Body', value: 'body' },
+        { text: 'UserId (g)', value: 'userId' },
+        { text: 'ID (g)', value: 'id' },
+        { text: 'Actions', value: 'title', sortable: false }
       ],
-      desserts: [],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        title: '',
+        body: 0,
+        userId: 0,
+        id: 0
       },
       defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        title: '',
+        body: 0,
+        userId: 0,
+        id: 0
       }
     }),
     computed: {
-      formTitle () {
+    ...mapGetters({
+      posts: 'post/posts'
+    })
+    },
+  created(){
+      this.getPosts();
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      }
     },
     watch: {
       dialog (val) {
         val || this.close()
       }
     },
-    created () {
-      this.initialize()
-    },
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7
-          }
-        ]
-      },
+    ...mapActions({
+      getPosts: 'post/index'
+      }),
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.posts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        const index = this.posts.indexOf(item)
+        confirm('Are you sure you want to delete this item?') && this.posts.splice(index, 1)
       },
       close () {
         this.dialog = false
@@ -230,9 +158,9 @@
       },
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.posts[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.posts.push(this.editedItem)
         }
         this.close()
       }
